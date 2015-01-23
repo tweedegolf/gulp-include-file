@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/tweedegolf/gulp-include-file",
   "dependencies": {
-    "event-stream": "3.2.1"
+    "event-stream": "3.2.1",
+    "gulp-util": "3.0.2"
   }
 }
