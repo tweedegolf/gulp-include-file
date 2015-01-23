@@ -1,0 +1,29 @@
+{
+  "name": "gulp-include-file",
+  "version": "0.1.0",
+  "description": "Include the contents of a file in javascript as a string.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tweedegolf/gulp-include-file.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "gulp-plugin",
+    "file",
+    "include"
+  ],
+  "author": "Ruben Nijveld <ruben@tweedegolf.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tweedegolf/gulp-include-file/issues"
+  },
+  "homepage": "https://github.com/tweedegolf/gulp-include-file",
+  "dependencies": {
+    "event-stream": "3.2.1"
+  }
+}
