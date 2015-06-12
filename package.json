@@ -1,6 +1,6 @@
 {
   "name": "gulp-include-file",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Include the contents of a file in javascript as a string.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/tweedegolf/gulp-include-file",
   "dependencies": {
-    "event-stream": "3.2.1",
-    "gulp-util": "3.0.2"
+    "gulp-util": "^3.0.2",
+    "through2": "^2.0.0"
   }
 }

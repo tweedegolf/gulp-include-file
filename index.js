@@ -1,42 +1,44 @@
-var es = require('event-stream');
 var PluginError = require('gulp-util').PluginError;
+var through = require('through2');
 var fs = require('fs');
 
 module.exports = function (options) {
   options = options || {};
 
-  var pluginName = 'gulp-include-file';
+  var PLUGIN_NAME = 'gulp-include-file';
   var regex = options.regex || /INCLUDE_FILE\s*\(\s*['"]([^'"]*)['"]\s*\)/m;
   var transform = options.transform || JSON.stringify;
 
-  return es.map(function (file, callback) {
+  return through.obj(function (file, enc, callback) {
     if (file.isNull()) {
-      return;
+      return callback(null, file);
     }
 
     if (file.isStream()) {
-      return this.emit(
+      this.emit(
         'error',
-        new PluginError(pluginName, 'Cannot use streamed files')
+        new PluginError(PLUGIN_NAME, 'Cannot use streamed files')
       );
+      return callback();
     }
 
     if (file.isBuffer()) {
-      var contents = file.contents.toString('utf8');
+      var contents = file.contents.toString(enc);
       var matches;
       while (matches = regex.exec(contents)) {
         var path = file.base + matches[1];
 
         if (fs.existsSync(path)) {
-          var include_contents = fs.readFileSync(path, {encoding: 'utf8'});
+          var include_contents = fs.readFileSync(path, {encoding: enc});
           contents = contents.substr(0, matches.index) +
             transform(include_contents) +
             contents.substr(matches.index + matches[0].length);
         } else {
-          return this.emit(
+          this.emit(
             'error',
-            new PluginError(pluginName, "File not found: " + path)
+            new PluginError(PLUGIN_NAME, "File not found: " + path)
           );
+          return callback();
         }
       }
       file.contents = new Buffer(contents);
